@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Open Book Studio</title>
+    <style>
+      :root {
+        --bg: #f5f3ee;
+        --surface: #ffffff;
+        --primary: #3b5b4d;
+        --primary-dark: #274235;
+        --accent: #d9b36a;
+        --text: #1f2a24;
+        --muted: #5f6d67;
+        --border: #dfe7e2;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        line-height: 1.6;
+      }
+
+      img {
+        max-width: 100%;
+        display: block;
+      }
+
+      a {
+        color: var(--primary-dark);
+      }
+
+      .container {
+        width: min(1100px, calc(100% - 2rem));
+        margin: 0 auto;
+      }
+
+      header {
+        background: var(--surface);
+        border-bottom: 1px solid var(--border);
+        position: sticky;
+        top: 0;
+        z-index: 10;
+      }
+
+      .topbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+        padding: 1rem 0;
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        font-weight: 700;
+        color: var(--primary-dark);
+      }
+
+      .brand img {
+        width: 42px;
+        height: 42px;
+        border-radius: 50%;
+      }
+
+      nav {
+        display: flex;
+        align-items: center;
+        gap: 1.25rem;
+      }
+
+      nav a {
+        text-decoration: none;
+        font-weight: 600;
+      }
+
+      .button {
+        display: inline-block;
+        background: var(--primary);
+        color: #fff;
+        text-decoration: none;
+        padding: 0.8rem 1.2rem;
+        border-radius: 8px;
+        font-weight: 700;
+        border: none;
+        cursor: pointer;
+      }
+
+      .button:hover,
+      .button:focus-visible {
+        background: var(--primary-dark);
+      }
+
+      main {
+        padding: 2rem 0 4rem;
+      }
+
+      .hero {
+        display: grid;
+        grid-template-columns: 1.2fr 1fr;
+        gap: 2rem;
+        align-items: center;
+        padding: 3rem 0;
+      }
+
+      .hero-content h1 {
+        font-size: clamp(2.4rem, 4vw, 4rem);
+        line-height: 1.1;
+        margin: 0 0 1rem;
+      }
+
+      .hero-content p {
+        font-size: 1.05rem;
+        color: var(--muted);
+        margin-bottom: 1.5rem;
+      }
+
+      .hero-actions {
+        display: flex;
+        gap: 1rem;
+        flex-wrap: wrap;
+      }
+
+      .secondary-button {
+        display: inline-block;
+        text-decoration: none;
+        padding: 0.8rem 1.2rem;
+        border: 1px solid var(--primary);
+        border-radius: 8px;
+        color: var(--primary-dark);
+        font-weight: 700;
+      }
+
+      .hero-image img {
+        width: 100%;
+        height: 420px;
+        object-fit: cover;
+        border-radius: 20px;
+        box-shadow: 0 18px 40px rgba(0, 0, 0, 0.08);
+      }
+
+      section {
+        padding: 2rem 0;
+      }
+
+      .section-heading {
+        margin-bottom: 1.5rem;
+      }
+
+      h2 {
+        margin: 0 0 0.5rem;
+        font-size: clamp(1.8rem, 3vw, 2.5rem);
+      }
+
+      .section-heading p {
+        margin: 0;
+        color: var(--muted);
+      }
+
+      .features {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 1.5rem;
+      }
+
+      .feature-card {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        padding: 1.5rem;
+      }
+
+      .feature-card h3 {
+        margin-top: 0;
+        margin-bottom: 0.5rem;
+      }
+
+      .feature-card p {
+        margin: 0;
+        color: var(--muted);
+      }
+
+      .about-layout {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 2rem;
+        align-items: center;
+      }
+
+      .about-layout img {
+        border-radius: 18px;
+        height: 360px;
+        object-fit: cover;
+      }
+
+      .contact-wrapper {
+        display: grid;
+        grid-template-columns: 1fr 1.2fr;
+        gap: 2rem;
+        align-items: start;
+      }
+
+      .contact-panel {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        padding: 1.5rem;
+      }
+
+      form {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        padding: 1.5rem;
+      }
+
+      .form-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 1rem;
+      }
+
+      .field {
+        display: flex;
+        flex-direction: column;
+        gap: 0.45rem;
+      }
+
+      .field.full-width {
+        grid-column: 1 / -1;
+      }
+
+      label {
+        font-weight: 700;
+      }
+
+      input,
+      textarea {
+        width: 100%;
+        padding: 0.8rem 0.9rem;
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        font: inherit;
+        background: #fff;
+      }
+
+      input:focus-visible,
+      textarea:focus-visible {
+        outline: 3px solid rgba(59, 91, 77, 0.25);
+        outline-offset: 2px;
+      }
+
+      textarea {
+        min-height: 140px;
+        resize: vertical;
+      }
+
+      .checkbox-row {
+        display: flex;
+        align-items: center;
+        gap: 0.7rem;
+        margin-top: 1rem;
+      }
+
+      .checkbox-row input {
+        width: auto;
+      }
+
+      footer {
+        background: var(--primary-dark);
+        color: #fff;
+        padding: 1.5rem 0;
+      }
+
+      .footer-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 1rem;
+        flex-wrap: wrap;
+      }
+
+      .footer-content p {
+        margin: 0;
+      }
+
+      .mu-id {
+        font-weight: 700;
+      }
+
+      @media (max-width: 760px) {
+        .hero,
+        .features,
+        .about-layout,
+        .contact-wrapper,
+        .form-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .topbar {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+
+        nav {
+          flex-wrap: wrap;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="container topbar">
+        <div class="brand" aria-label="Open Book Studio">
+          <img
+            src="https://images.unsplash.com/photo-1516979187457-637abb4f9353?auto=format&fit=crop&w=200&q=80"
+            alt="Open Book Studio logo showing a simple open book illustration"
+          />
+          <span>Open Book Studio</span>
+        </div>
+
+        <nav aria-label="Main navigation">
+          <a href="#home">Home</a>
+          <a href="#features">Features</a>
+          <a href="#about">About</a>
+          <a href="#contact">Contact</a>
+        </nav>
+
+        <a class="button" href="#contact">Get Started</a>
+      </div>
+    </header>
+
+    <main id="home">
+      <div class="container hero">
+        <div class="hero-content">
+          <h1>Stories worth sharing, books worth discovering.</h1>
+          <p>
+            Discover new reads, build your library, and connect with a community
+            that loves thoughtful writing and timeless ideas.
+          </p>
+
+          <div class="hero-actions">
+            <a class="button" href="#features">Explore Library</a>
+            <a class="secondary-button" href="#about">Learn More</a>
+          </div>
+        </div>
+
+        <div class="hero-image">
+          <img
+            src="https://images.unsplash.com/photo-1521587760476-6c12a4b040da?auto=format&fit=crop&w=900&q=80"
+            alt="A person reading a book beside a pile of books in a warm library"
+          />
+        </div>
+      </div>
+
+      <section id="features" aria-labelledby="features-title">
+        <div class="container">
+          <div class="section-heading">
+            <h2 id="features-title">Why readers choose us</h2>
+            <p>Everything you need to organize, explore, and enjoy books.</p>
+          </div>
+
+          <div class="features">
+            <article class="feature-card">
+              <h3>Curated Collections</h3>
+              <p>
+                Browse hand-picked lists and discover books that match your
+                favorite genres and interests.
+              </p>
+            </article>
+
+            <article class="feature-card">
+              <h3>Digital Library</h3>
+              <p>
+                Keep track of books you have read, want to read, and want to
+                revisit anytime.
+              </p>
+            </article>
+
+            <article class="feature-card">
+              <h3>Reader Community</h3>
+              <p>
+                Connect with fellow book lovers, find recommendations, and share
+                your favorite stories.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="about" aria-labelledby="about-title">
+        <div class="container about-layout">
+          <div>
+            <div class="section-heading">
+              <h2 id="about-title">A better way to love books</h2>
+              <p>
+                We help readers build meaningful reading habits with a simple,
+                elegant experience designed around discovery and enjoyment.
+              </p>
+            </div>
+
+            <p>
+              From casual readers to passionate collectors, our platform makes
+              it easy to explore new titles and keep your reading life organized.
+            </p>
+          </div>
+
+          <img
+            src="https://images.unsplash.com/photo-1512820790803-83ca734da794?auto=format&fit=crop&w=900&q=80"
+            alt="A cozy reading corner with books, coffee, and a warm atmosphere"
+          />
+        </div>
+      </section>
+
+      <section id="contact" aria-labelledby="contact-title">
+        <div class="container contact-wrapper">
+          <div class="contact-panel">
+            <div class="section-heading">
+              <h2 id="contact-title">Stay in touch</h2>
+              <p>
+                Tell us what you’re looking for and we’ll help you discover your
+                next perfect read.
+              </p>
+            </div>
+
+            <p>
+              We love hearing from readers, authors, and creative communities.
+            </p>
+          </div>
+
+          <form aria-label="Contact form" aria-describedby="form-help">
+            <div class="form-grid">
+              <div class="field">
+                <label for="first-name">First name</label>
+                <input
+                  id="first-name"
+                  name="first-name"
+                  type="text"
+                  autocomplete="given-name"
+                  required
+                />
+              </div>
+
+              <div class="field">
+                <label for="last-name">Last name</label>
+                <input
+                  id="last-name"
+                  name="last-name"
+                  type="text"
+                  autocomplete="family-name"
+                  required
+                />
+              </div>
+
+              <div class="field full-width">
+                <label for="email">Email address</label>
+                <input
+                  id="email"
+                  name="email"
+                  type="email"
+                  autocomplete="email"
+                  required
+                />
+              </div>
+
+              <div class="field full-width">
+                <label for="subject">Subject</label>
+                <input
+                  id="subject"
+                  name="subject"
+                  type="text"
+                  autocomplete="off"
+                  required
+                />
+              </div>
+
+              <div class="field full-width">
+                <label for="message">Message</label>
+                <textarea
+                  id="message"
+                  name="message"
+                  placeholder="How can we help you?"
+                  required
+                ></textarea>
+              </div>
+            </div>
+
+            <div class="checkbox-row">
+              <input id="updates" name="updates" type="checkbox" />
+              <label for="updates">I’d like to receive updates and reading tips.</label>
+            </div>
+
+            <p id="form-help" style="color: var(--muted); margin-top: 1rem;">
+              All fields are required unless marked otherwise.
+            </p>
+
+            <div style="margin-top: 1.25rem;">
+              <button class="button" type="submit">Send Message</button>
+            </div>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="container footer-content">
+        <p>© 2026 Open Book Studio</p>
+        <p class="mu-id">μID: 20240615</p>
+      </div>
+    </footer>
+  </body>
+</html>
